@@ -3,6 +3,7 @@ import pydirectinput
 import win32gui
 import keyboard
 
+
 PRESS_DELAY = 100 # milliseconds
 LOOP_DELAY = 1000 # milliseconds
 
@@ -18,6 +19,8 @@ CTRL + ALT + /          : Exit typing mode
 CTRL + ALT + `          : Reset all settings
 
 Spamming is suppressed if paused, typing, a modifier key is held, or if EverQuest is not the foreground window.
+Multiple hotkeys can be toggled simultaneously.
+Valid hotkeys are: 1 2 3 4 5 6 7 8 9 0 - =
 '''
 
 

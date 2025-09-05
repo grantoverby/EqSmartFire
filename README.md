@@ -1,20 +1,19 @@
-EqSmartFire spams hotkeys in EverQuest. It was inspired by AutoFire, an application used by rangers in the early days 
-of Everquest. It builds upon the concept of AutoFire by adding quality-of-life features. Features are similar to those 
-found in gaming keyboards and mice.
+EqSmartFire spams hotkeys in EverQuest. It was inspired by AutoFire and aims to improve upon it by reducing 
+interference with attended game play.
 
-EqSmartFire will spam one or more of EverQuest's default hotkeys (1,2,3,4,5,6,7,8,9,0,-,=).
+| Shortcut            | Function                             |
+|---------------------|--------------------------------------|
+| CTRL + ALT + hotkey | Toggle spam for corresponding hotkey |
+| CTRL + ALT + [      | Pause spamming                       |
+| CTRL + ALT + ]      | Resume spamming                      |
+| /                   | Enter typing mode                    |
+| r                   | Enter typing mode                    |
+| ENTER               | Exit typing mode                     |
+| CTRL + ALT + /      | Exit typing mode                     |
+| CTRL + ALT + `      | Reset all settings                   |
 
-Spamming each hotkey is toggled by ctrl + alt + hotkey.
+Spamming is suppressed if paused, typing, a modifier key is held, or if EverQuest is not the foreground window.
 
-Each hotkey is pressed at a rate a little slower than once per second.
+Multiple hotkeys can be toggled simultaneously.
 
-Hotkeys are only pressed while EverQuest is the foreground window.
-
-Hotkeys are not pressed while any modifier key (ctrl, alt, shift, windows) is held down.
-
-Spamming is paused while typing is detected. Typing is assumed when / or r is pressed and canceled when enter is 
-pressed. Typing can be canceled manually with ctrl + alt + /.
-
-Spamming is manually paused with ctrl + alt + [ and resumed with ctrl + alt + ].
-
-State can be reset to default (no hotkeys enabled with typing and pause off) with ctrl + alt + `.
+Valid hotkeys are: 1 2 3 4 5 6 7 8 9 0 - =
