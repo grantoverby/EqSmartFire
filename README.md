@@ -19,6 +19,6 @@ Multiple hotkeys can be toggled simultaneously.
 
 Available hotkeys: 1 2 3 4 5 6 7 8 9 0 - =
 
-Available delays: 1: 0.25s, 2: 0.5s, 3: 0.75s, 4: 1s, 5: 2s, 6: 10s, 7: 60s
+Available delays: 1: 0.5s, 2: 0.75s, 3: 1s, 4: 2s, 5: 10s, 6: 60s
 
-Default delay: 2: 0.5s
+Default delay: 1: 0.5s

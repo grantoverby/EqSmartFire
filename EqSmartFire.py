@@ -20,15 +20,14 @@ Multiple hotkeys can be toggled simultaneously.
 Available hotkeys: 1 2 3 4 5 6 7 8 9 0 - =''')
 
 
-DEFAULT_DELAY = '2'
+DEFAULT_DELAY = '1'
 DELAYS = {
-    '1': 0.25,
-    '2': 0.5,
-    '3': 0.75,
-    '4': 1,
-    '5': 2,
-    '6': 10,
-    '7': 60,
+    '1': 0.5,
+    '2': 0.75,
+    '3': 1,
+    '4': 2,
+    '5': 10,
+    '6': 60,
 }
 
 
@@ -111,12 +110,23 @@ def is_active():
     )
 
 
+def sleep(last_time_ms):
+    global delay
+    current_time_ms = time.time_ns() // 1_000_000
+    sleep_time_ms = last_time_ms + (delay * 1000) - current_time_ms
+    if sleep_time_ms > 0:
+        time.sleep(sleep_time_ms / 1000)
+    return time.time_ns() // 1_000_000
+
+
 try:
+    last_loop = 0
     while True:
-        time.sleep(delay)
-        for key in keys:
-            if is_active():
+        last_loop = sleep(last_loop)
+        keys_copy = keys[:]
+        for key in keys_copy:
+            if is_active() and key in keys:
                 pydirectinput.press(key)
-                time.sleep(delay / 10)
+                time.sleep(0.1)
 except KeyboardInterrupt:
     pass
