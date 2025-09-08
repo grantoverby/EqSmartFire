@@ -1,6 +1,8 @@
 EqSmartFire spams hotkeys in EverQuest. It was inspired by AutoFire and aims to improve upon it by reducing 
 interference with attended game play.
 
+Download from the [releases page](https://github.com/grantoverby/EqSmartFire/releases/latest).
+
 | Shortcut                   | Function                             |
 |----------------------------|--------------------------------------|
 | CTRL + ALT + hotkey        | Toggle spam for corresponding hotkey |
