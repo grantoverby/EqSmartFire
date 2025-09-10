@@ -17,6 +17,7 @@ CTRL + `             : Reset all settings
 
 Spamming is suppressed if paused, typing, a modifier key is held, or if EverQuest is not the foreground window.
 Multiple hotkeys can be toggled simultaneously.
+Input is ignored if Parsec is the foreground window.
 Available hotkeys: 1 2 3 4 5 6 7 8 9 0 - =''')
 
 
@@ -45,10 +46,15 @@ print(f'Available delays: {delay_descriptions}')
 print(f'Default delay: {DEFAULT_DELAY} = {DELAYS.get(DEFAULT_DELAY)}s')
 
 
+def is_parsec_foreground():
+    return win32gui.GetWindowText(win32gui.GetForegroundWindow()) == 'Parsec'
+
+
 def set_delay(val):
     global delay
     global DELAYS
-    delay = DELAYS.get(val)
+    if not is_parsec_foreground():
+        delay = DELAYS.get(val)
 
 for key in DELAYS:
     keyboard.add_hotkey('ctrl+shift+' + key, set_delay, args=(key,))
@@ -56,10 +62,11 @@ for key in DELAYS:
 
 def toggle_key(val):
     global keys
-    if val in keys:
-        keys.remove(val)
-    else:
-        keys.append(val)
+    if not is_parsec_foreground():
+        if val in keys:
+            keys.remove(val)
+        else:
+            keys.append(val)
 
 for key in ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '=']:
     keyboard.add_hotkey('ctrl+' + key, toggle_key, args=(key,))
@@ -67,7 +74,8 @@ for key in ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '=']:
 
 def set_typing(val):
     global typing
-    typing = val
+    if not is_parsec_foreground():
+        typing = val
 
 keyboard.add_hotkey('/', set_typing, args=(True, ))
 keyboard.add_hotkey('r', set_typing, args=(True, ))
@@ -77,7 +85,8 @@ keyboard.add_hotkey('enter', set_typing, args=(False, ))
 
 def set_paused(val):
     global paused
-    paused = val
+    if not is_parsec_foreground():
+        paused = val
 
 keyboard.add_hotkey('ctrl+[', set_paused, args=(True, ))
 keyboard.add_hotkey('ctrl+]', set_paused, args=(False, ))
@@ -88,10 +97,11 @@ def reset():
     global typing
     global paused
     global DEFAULT_DELAY
-    keys.clear()
-    typing = False
-    paused = False
-    set_delay(DEFAULT_DELAY)
+    if not is_parsec_foreground():
+        keys.clear()
+        typing = False
+        paused = False
+        set_delay(DEFAULT_DELAY)
 
 keyboard.add_hotkey('ctrl+`', reset)
 

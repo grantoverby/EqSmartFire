@@ -19,6 +19,8 @@ Spamming is suppressed if paused, typing, a modifier key is held, or if EverQues
 
 Multiple hotkeys can be toggled simultaneously.
 
+Input is ignored if Parsec is the foreground window.
+
 Available delays: 1 = 0.5s, 2 = 0.75s, 3 = 1s, 4 = 2s, 5 = 10s, 6 = 
 
 Default delay: 1 = 0.5s
