@@ -17,9 +17,9 @@ Download from the [releases page](https://github.com/grantoverby/EqSmartFire/rel
 
 Spamming is suppressed if paused, typing, a modifier key is held, or if EverQuest is not the foreground window.
 
-Multiple hotkeys can be toggled simultaneously.
+If multiple hotkeys are enabled, they will be spammed in the order they were enabled.
 
-Input is ignored if Parsec is the foreground window.
+Input is ignored if EverQuest is not the foreground window.
 
 Available hotkeys: 1 2 3 4 5 6 7 8 9 0 - =
 

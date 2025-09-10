@@ -5,6 +5,8 @@ import keyboard
 
 
 print('''
+https://github.com/grantoverby/EqSmartFire
+
 CTRL + hotkey        : Toggle spam for corresponding hotkey
 CTRL + [             : Pause spamming
 CTRL + ]             : Resume spamming
@@ -16,8 +18,8 @@ CTRL + SHIFT + delay : Sets delay between key presses
 CTRL + `             : Reset all settings
 
 Spamming is suppressed if paused, typing, a modifier key is held, or if EverQuest is not the foreground window.
-Multiple hotkeys can be toggled simultaneously.
-Input is ignored if Parsec is the foreground window.
+If multiple hotkeys are enabled, they will be spammed in the order they were enabled.
+Input is ignored if EverQuest is not the foreground window.
 Available hotkeys: 1 2 3 4 5 6 7 8 9 0 - =''')
 
 
@@ -46,14 +48,14 @@ print(f'Available delays: {delay_descriptions}')
 print(f'Default delay: {DEFAULT_DELAY} = {DELAYS.get(DEFAULT_DELAY)}s')
 
 
-def is_parsec_foreground():
-    return win32gui.GetWindowText(win32gui.GetForegroundWindow()) == 'Parsec'
+def is_everquest_foreground():
+    return win32gui.GetWindowText(win32gui.GetForegroundWindow()) == 'EverQuest'
 
 
 def set_delay(val):
     global delay
     global DELAYS
-    if not is_parsec_foreground():
+    if is_everquest_foreground():
         delay = DELAYS.get(val)
 
 for key in DELAYS:
@@ -62,7 +64,7 @@ for key in DELAYS:
 
 def toggle_key(val):
     global keys
-    if not is_parsec_foreground():
+    if is_everquest_foreground():
         if val in keys:
             keys.remove(val)
         else:
@@ -74,7 +76,7 @@ for key in ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '=']:
 
 def set_typing(val):
     global typing
-    if not is_parsec_foreground():
+    if is_everquest_foreground():
         typing = val
 
 keyboard.add_hotkey('/', set_typing, args=(True, ))
@@ -85,7 +87,7 @@ keyboard.add_hotkey('enter', set_typing, args=(False, ))
 
 def set_paused(val):
     global paused
-    if not is_parsec_foreground():
+    if is_everquest_foreground():
         paused = val
 
 keyboard.add_hotkey('ctrl+[', set_paused, args=(True, ))
@@ -97,7 +99,7 @@ def reset():
     global typing
     global paused
     global DEFAULT_DELAY
-    if not is_parsec_foreground():
+    if is_everquest_foreground():
         keys.clear()
         typing = False
         paused = False
@@ -110,7 +112,7 @@ def is_active():
     global typing
     global paused
     return (
-            win32gui.GetWindowText(win32gui.GetForegroundWindow()) == 'EverQuest'
+            is_everquest_foreground()
             and not typing
             and not paused
             and not keyboard.is_pressed('ctrl')
