@@ -4,6 +4,29 @@ import win32gui
 import keyboard
 
 
+# Constants
+
+DEFAULT_DELAY = '1'
+DELAYS = {
+    '1': 0.5,
+    '2': 0.75,
+    '3': 1,
+    '4': 2,
+    '5': 10,
+    '6': 60,
+}
+
+
+# Variables
+
+keys = []
+typing = False
+paused = False
+delay = DELAYS.get(DEFAULT_DELAY)
+
+
+# Print Help
+
 print('''
 https://github.com/grantoverby/EqSmartFire
 
@@ -22,24 +45,6 @@ If multiple hotkeys are enabled, they will be spammed in the order they were ena
 Input is ignored if EverQuest is not the foreground window.
 Available hotkeys: 1 2 3 4 5 6 7 8 9 0 - =''')
 
-
-DEFAULT_DELAY = '1'
-DELAYS = {
-    '1': 0.5,
-    '2': 0.75,
-    '3': 1,
-    '4': 2,
-    '5': 10,
-    '6': 60,
-}
-
-
-keys = []
-typing = False
-paused = False
-delay = DELAYS.get(DEFAULT_DELAY)
-
-
 delay_descriptions = ''
 for key, val in DELAYS.items():
     delay_descriptions += f'{key} = {val}s, '
@@ -48,19 +53,13 @@ print(f'Available delays: {delay_descriptions}')
 print(f'Default delay: {DEFAULT_DELAY} = {DELAYS.get(DEFAULT_DELAY)}s')
 
 
+# Utility Functions
+
 def is_everquest_foreground():
     return win32gui.GetWindowText(win32gui.GetForegroundWindow()) == 'EverQuest'
 
 
-def set_delay(val):
-    global delay
-    global DELAYS
-    if is_everquest_foreground():
-        delay = DELAYS.get(val)
-
-for key in DELAYS:
-    keyboard.add_hotkey('ctrl+shift+' + key, set_delay, args=(key,))
-
+# Toggle Hotkeys
 
 def toggle_key(val):
     global keys
@@ -74,6 +73,20 @@ for key in ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '=']:
     keyboard.add_hotkey('ctrl+' + key, toggle_key, args=(key,))
 
 
+# Delay
+
+def set_delay(val):
+    global delay
+    global DELAYS
+    if is_everquest_foreground():
+        delay = DELAYS.get(val)
+
+for key in DELAYS:
+    keyboard.add_hotkey('ctrl+shift+' + key, set_delay, args=(key,))
+
+
+# Typing
+
 def set_typing(val):
     global typing
     if is_everquest_foreground():
@@ -85,6 +98,8 @@ keyboard.add_hotkey('ctrl+/', set_typing, args=(False, ))
 keyboard.add_hotkey('enter', set_typing, args=(False, ))
 
 
+# Pause
+
 def set_paused(val):
     global paused
     if is_everquest_foreground():
@@ -93,6 +108,8 @@ def set_paused(val):
 keyboard.add_hotkey('ctrl+[', set_paused, args=(True, ))
 keyboard.add_hotkey('ctrl+]', set_paused, args=(False, ))
 
+
+# Reset
 
 def reset():
     global keys
@@ -108,6 +125,8 @@ def reset():
 keyboard.add_hotkey('ctrl+`', reset)
 
 
+# Core Logic
+
 def is_active():
     global typing
     global paused
@@ -121,7 +140,6 @@ def is_active():
             and not keyboard.is_pressed('windows')
     )
 
-
 def sleep(last_time_ms):
     global delay
     current_time_ms = time.time_ns() // 1_000_000
@@ -129,7 +147,6 @@ def sleep(last_time_ms):
     if sleep_time_ms > 0:
         time.sleep(sleep_time_ms / 1000)
     return time.time_ns() // 1_000_000
-
 
 try:
     last_loop = 0
