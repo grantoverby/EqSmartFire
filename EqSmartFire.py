@@ -44,9 +44,9 @@ delay = DELAYS.get(DEFAULT_DELAY)
 print('''
 https://github.com/grantoverby/EqSmartFire
 
-CTRL + hotkey        : Toggle spam for corresponding hotkey
-CTRL + [             : Pause spamming
-CTRL + ]             : Resume spamming
+CTRL + hotkey        : Toggle firing for corresponding hotkey
+CTRL + [             : Pause firing
+CTRL + ]             : Resume firing
 /                    : Enter typing mode
 r                    : Enter typing mode
 ENTER                : Exit typing mode
@@ -54,8 +54,8 @@ CTRL + /             : Exit typing mode
 CTRL + SHIFT + delay : Sets delay between key presses
 CTRL + `             : Reset all settings
 
-Spamming is suppressed if paused, typing, a modifier key is held, or if EverQuest is not the foreground window.
-If multiple hotkeys are enabled, they will be spammed in the order they were enabled.
+Firing hotkeys is suppressed if paused, typing, a modifier key is held, or if EverQuest is not the foreground window.
+If multiple hotkeys are enabled, they will be fired in the order they were enabled.
 Input is ignored if EverQuest is not the foreground window.
 Available hotkeys: 1 2 3 4 5 6 7 8 9 0 - =''')
 

@@ -3,21 +3,21 @@ interference with attended game play.
 
 Download from the [releases page](https://github.com/grantoverby/EqSmartFire/releases/latest).
 
-| Shortcut               | Function                             |
-|------------------------|--------------------------------------|
-| CTRL + hotkey          | Toggle spam for corresponding hotkey |
-| CTRL + [               | Pause spamming                       |
-| CTRL + ]               | Resume spamming                      |
-| /                      | Enter typing mode                    |
-| r                      | Enter typing mode                    |
-| ENTER                  | Exit typing mode                     |
-| CTRL + /               | Exit typing mode                     |
-| CTRL + SHIFT + delay   | Sets delay between key presses       |
-| CTRL + `               | Reset all settings                   |
+| Shortcut               | Function                               |
+|------------------------|----------------------------------------|
+| CTRL + hotkey          | Toggle firing for corresponding hotkey |
+| CTRL + [               | Pause firing                           |
+| CTRL + ]               | Resume firing                          |
+| /                      | Enter typing mode                      |
+| r                      | Enter typing mode                      |
+| ENTER                  | Exit typing mode                       |
+| CTRL + /               | Exit typing mode                       |
+| CTRL + SHIFT + delay   | Sets delay between key presses         |
+| CTRL + `               | Reset all settings                     |
 
-Spamming is suppressed if paused, typing, a modifier key is held, or if EverQuest is not the foreground window.
+Firing hotkeys is suppressed if paused, typing, a modifier key is held, or if EverQuest is not the foreground window.
 
-If multiple hotkeys are enabled, they will be spammed in the order they were enabled.
+If multiple hotkeys are enabled, they will be fired in the order they were enabled.
 
 Input is ignored if EverQuest is not the foreground window.
 
