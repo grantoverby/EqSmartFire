@@ -1,7 +1,21 @@
+import sys
 import time
 import pydirectinput
+import win32api
+import win32event
 import win32gui
 import keyboard
+
+
+# Prevent Multiple Instances
+
+mutex = win32event.CreateMutex(None, False, "Global\\EqSmartFire")
+if win32api.GetLastError() == 183:
+    print('''
+Another instance of EqSmartFire is running.
+This instance will exit.''')
+    time.sleep(5)
+    sys.exit(1)
 
 
 # Constants
