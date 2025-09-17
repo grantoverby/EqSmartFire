@@ -165,9 +165,9 @@ def sleep():
     global delay
     global last_loop_epoch_ms
     current_time_ms = time.time_ns() // 1_000_000
-    sleep_time_ms = last_loop_epoch_ms + (delay * 1000) - current_time_ms
+    sleep_time_ms = last_loop_epoch_ms + (delay * 1_000) - current_time_ms
     if sleep_time_ms > 0:
-        time.sleep(sleep_time_ms / 1000)
+        time.sleep(sleep_time_ms / 1_000)
     last_loop_epoch_ms = time.time_ns() // 1_000_000
 
 try:
