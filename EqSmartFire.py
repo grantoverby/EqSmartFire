@@ -1,10 +1,10 @@
+import keyboard
+import pydirectinput
 import sys
 import time
-import pydirectinput
 import win32api
 import win32event
 import win32gui
-import keyboard
 
 
 # Prevent Multiple Instances
@@ -20,7 +20,7 @@ This instance will exit.''')
 
 # Constants
 
-DEFAULT_DELAY = '1'
+HOTKEYS = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '=']
 DELAYS = {
     '1': 0.5,
     '2': 0.75,
@@ -29,6 +29,7 @@ DELAYS = {
     '5': 10,
     '6': 60,
 }
+DEFAULT_DELAY = '1'
 
 
 # Variables
@@ -37,6 +38,7 @@ keys = []
 typing = False
 paused = False
 delay = DELAYS.get(DEFAULT_DELAY)
+last_loop_epoch_ms = 0
 
 
 # Print Help
@@ -56,8 +58,13 @@ CTRL + `             : Reset all settings
 
 Firing hotkeys is suppressed if paused, typing, a modifier key is held, or if EverQuest is not the foreground window.
 If multiple hotkeys are enabled, they will be fired in the order they were enabled.
-Input is ignored if EverQuest is not the foreground window.
-Available hotkeys: 1 2 3 4 5 6 7 8 9 0 - =''')
+Input is ignored if EverQuest is not the foreground window.''')
+
+hotkeys_descriptions = ''
+for key in HOTKEYS:
+    hotkeys_descriptions += f'{key} '
+hotkeys_descriptions = hotkeys_descriptions[:-1]
+print(f'Available hotkeys: {hotkeys_descriptions}')
 
 delay_descriptions = ''
 for key, val in DELAYS.items():
@@ -83,7 +90,7 @@ def toggle_key(val):
         else:
             keys.append(val)
 
-for key in ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '=']:
+for key in HOTKEYS:
     keyboard.add_hotkey('ctrl+' + key, toggle_key, args=(key,))
 
 
@@ -139,7 +146,7 @@ def reset():
 keyboard.add_hotkey('ctrl+`', reset)
 
 
-# Core Logic
+# Core Loop
 
 def is_active():
     global typing
@@ -154,18 +161,18 @@ def is_active():
             and not keyboard.is_pressed('windows')
     )
 
-def sleep(last_time_ms):
+def sleep():
     global delay
+    global last_loop_epoch_ms
     current_time_ms = time.time_ns() // 1_000_000
-    sleep_time_ms = last_time_ms + (delay * 1000) - current_time_ms
+    sleep_time_ms = last_loop_epoch_ms + (delay * 1000) - current_time_ms
     if sleep_time_ms > 0:
         time.sleep(sleep_time_ms / 1000)
-    return time.time_ns() // 1_000_000
+    last_loop_epoch_ms = time.time_ns() // 1_000_000
 
 try:
-    last_loop = 0
     while True:
-        last_loop = sleep(last_loop)
+        sleep()
         keys_copy = keys[:]
         for key in keys_copy:
             if is_active() and key in keys:
