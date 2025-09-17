@@ -136,12 +136,14 @@ def reset():
     global keys
     global typing
     global paused
+    global delay
+    global DELAYS
     global DEFAULT_DELAY
     if is_everquest_foreground():
         keys.clear()
         typing = False
         paused = False
-        set_delay(DEFAULT_DELAY)
+        delay = DELAYS.get(DEFAULT_DELAY)
 
 keyboard.add_hotkey('ctrl+`', reset)
 
