@@ -73,6 +73,8 @@ delay_descriptions = delay_descriptions[:-2]
 print(f'Available delays: {delay_descriptions}')
 print(f'Default delay: {DEFAULT_DELAY} = {DELAYS.get(DEFAULT_DELAY)}s')
 
+print('\n')
+
 
 # Utility Functions
 
@@ -89,6 +91,7 @@ def toggle_key(val):
             keys.remove(val)
         else:
             keys.append(val)
+        print(f'Keys: {keys}')
 
 for key in HOTKEYS:
     keyboard.add_hotkey('ctrl+' + key, toggle_key, args=(key,))
@@ -101,6 +104,7 @@ def set_delay(val):
     global DELAYS
     if is_everquest_foreground():
         delay = DELAYS.get(val)
+        print(f'Delay: {delay}s')
 
 for key in DELAYS:
     keyboard.add_hotkey('ctrl+shift+' + key, set_delay, args=(key,))
@@ -112,6 +116,7 @@ def set_typing(val):
     global typing
     if is_everquest_foreground():
         typing = val
+        print(f'Typing: {typing}')
 
 keyboard.add_hotkey('/', set_typing, args=(True, ))
 keyboard.add_hotkey('r', set_typing, args=(True, ))
@@ -125,6 +130,7 @@ def set_paused(val):
     global paused
     if is_everquest_foreground():
         paused = val
+        print(f'Paused: {paused}')
 
 keyboard.add_hotkey('ctrl+[', set_paused, args=(True, ))
 keyboard.add_hotkey('ctrl+]', set_paused, args=(False, ))
@@ -144,6 +150,7 @@ def reset():
         typing = False
         paused = False
         delay = DELAYS.get(DEFAULT_DELAY)
+        print('Reset')
 
 keyboard.add_hotkey('ctrl+`', reset)
 
@@ -182,3 +189,5 @@ try:
                 time.sleep(0.1)
 except KeyboardInterrupt:
     pass
+
+print('Exit')
