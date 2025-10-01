@@ -25,4 +25,4 @@ Available hotkeys: 1 2 3 4 5 6 7 8 9 0 - =
 
 Available delays: 1 = 0.5s, 2 = 0.75s, 3 = 1s, 4 = 2s, 5 = 10s, 6 = 60s
 
-Default delay: 1 = 0.5s
+Default delay: 3 = 1s
