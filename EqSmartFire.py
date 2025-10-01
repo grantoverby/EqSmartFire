@@ -29,7 +29,7 @@ DELAYS = {
     '5': 10,
     '6': 60,
 }
-DEFAULT_DELAY = '1'
+DEFAULT_DELAY = '3'
 
 
 # Variables
